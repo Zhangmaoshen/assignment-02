@@ -11,7 +11,7 @@ import re
 database='D:/doct/leason/NLP/leason2/Corpus/on_class-export_sql_1558435/sqlResult_1558435.csv'
 #print(os.path.exists(database))#判断文件是否存在
 dataframe=pd.read_csv(database, encoding='gb18030')   #读csv文件
-#print(dataframe)
+print(dataframe)
 all_articles=dataframe['content'].tolist()#把数组或矩阵等变为list
 #print(all_articles[:10])
 
@@ -22,13 +22,13 @@ def token(string):
 
 all_articles = [token(str(a)) for a in all_articles]#更新了all_articles
 print(all_articles[:10])
-'''
+
 text=''
 for a in all_articles[:10]:
     text+=a
 #所有字符串连接成一个str，统计字符串长度，电脑原因，只取list:all_articles的前十个词条
 #print(len(text))  共有12164个字
-'''
+
 from functools import reduce
 txt_from_reduce=reduce(lambda a1, a2:a1+a2, all_articles[:10])
 #返回a1+a2，跟a的类型相同
@@ -51,7 +51,7 @@ words_count = Counter(valida_tokens)
 frequences = [f for w, f in words_count.most_common(20)]
 #Counter()返回dict，统计不同元素的出现频率，按频率由大到小排列
 #frequences是频率排在前20的字的频率
-
+#################################
 '''
 import matplotlib.pyplot as plt
 x = [i for i in range(len(frequences))]
@@ -59,7 +59,7 @@ plt.plot(x, frequences)
 plt.show()#使图像显示，关闭图像才能继续执行后面的语句
 #画图，横坐标x，纵坐标frequences
 '''
-
+######################################3
 frequences_all=[f for w, f in words_count.most_common()]
 frequences_sun=sum(frequences_all)
 print(frequences_sun)
@@ -78,13 +78,13 @@ def get_pro(word):
 #把出现词的概率乘起来
 def product(numbers):
     return reduce(lambda a1, a2:a1*a2, numbers)#numbers需要可迭代
-'''
+
 def language_model_one_gram(string):
     words=cut(string)
     return product([get_pro(w) for w in words])
 
 print(language_model_one_gram('我们一起'))
-'''
+
 #2_Gram
 all_2_grams_words = [''.join(valida_tokens[i:i+2]) for i in range(len(valida_tokens[:-2]))]
 _2_gram_sum = len(all_2_grams_words)
@@ -102,7 +102,7 @@ print(get_prob_2_gram('我们', '吃'))
 def langauge_model_of_2_gram(sentence):
     sentence_probability = 1
     words = cut(sentence)
-    for i, word in enumerate(words):
+    for i, word in enumerate(words):#enumerate(),i表示第几个（0,1...）word是对应的元素
         if i == 0:
             prob = get_pro(word)
         else:
